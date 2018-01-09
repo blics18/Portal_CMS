@@ -1,0 +1,35 @@
+body{
+	text-align: center;
+	height: 100%;
+}
+
+
+input[type=text]{
+	color: black;
+	margin: 10px;
+	border: none;
+	border-bottom: 1px solid grey;
+	background-color: transparent;
+	width: 15%;
+	font-size: 15px;
+}
+
+input[type=text]:focus {
+	outline: none;
+    border-bottom: 3px solid #59A5A5;
+}
+
+input[type=submit]{
+	background-color: transparent;
+	margin-top: 10px;
+	padding: 10px 30px;
+	border: 1px solid black;
+	color: black;
+	font-size: 15px;
+}
+
+input[type=submit]:hover{
+	color: white;
+	background: #59A5A5;
+	border: 1px solid #59A5A5;
+}
