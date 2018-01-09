@@ -37,7 +37,7 @@ header{
 	margin: 20px 0px;
 	height: 30vh;
 	position: relative;
-	
+	color: #383E40;
 }
 
 header h1{
@@ -64,8 +64,9 @@ header h1{
 section{
 	border: 1px solid #59A5A5;
 	margin: 20px;
-	background-color: rgba(89, 165, 165, 0.72);
+	background-color: rgba(89, 165, 165, 0.5);
 	padding: 20px 0px;
+	color: #383E40;
 }
 
 footer {
