@@ -36,9 +36,15 @@ nav ul li a{
 header{
 	margin: 20px 0px;
 	height: 30vh;
+	
+}
+
+header h1{
 	position: relative;
-	left: 50;
-	top: 50;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 section{
