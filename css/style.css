@@ -48,6 +48,19 @@ header h1{
     transform: translate(-50%, -50%);
     margin: 0;
 }
+
+.column {
+    float: left;
+    width: 50%;
+ 
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 section{
 	border: 1px solid #59A5A5;
 	margin: 20px;
