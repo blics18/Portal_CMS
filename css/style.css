@@ -37,7 +37,6 @@ header{
 	margin: 20px 0px;
 	height: 30vh;
 	position: relative;
-	color: #383E40;
 }
 
 header h1{
@@ -47,6 +46,7 @@ header h1{
     margin-right: -50%;
     transform: translate(-50%, -50%);
     margin: 0;
+    color: #383E40;
 }
 
 .column {
