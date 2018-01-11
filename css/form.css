@@ -1,7 +1,6 @@
 body{
 	text-align: center;
 	height: 100%;
-	background-color: rgba(89, 165, 165, 0.5);
 }
 
 div{
@@ -10,37 +9,39 @@ div{
 }
 
 
-input[type=text]{
+input[type=email], input[type=password]{
 	color: black;
 	margin: 10px;
 	border: none;
-	border-bottom: 1px solid grey;
-	background-color: transparent;
-	width: 15%;
+	border-bottom: 1px solid #59A5A5;
+	width: 20%;
 	font-size: 15px;
 }
 
-input[type=text]:focus {
+input[type=email]:focus, input[type=password]:focus {
 	outline: none;
     border-bottom: 3px solid #59A5A5;
 }
 
-input[type=submit]{
-	background-color: transparent;
+button{
 	margin-top: 10px;
-	padding: 10px 30px;
-	border: 1px solid black;
-	color: black;
+	width: 20%;
+	height: 40px;
+	border: 2px solid #3FBF7F;
+	color: #3FBF7F;
 	font-size: 15px;
 }
 
-input[type=submit]:hover{
+button:hover{
+	background-color: #3FBF7F;
 	color: white;
-	background: #59A5A5;
-	border: 1px solid #59A5A5;
+}
+
+button:focus{
+	outline: none;
 }
 
 hr{
 	margin: 0px 40px;
-	border-top: 1px solid white;
+	border-top: 1px solid #59A5A5;
 }
