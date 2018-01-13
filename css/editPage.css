@@ -3,9 +3,12 @@ header h1{
 }
 
 div{
-	padding: 0 30%;
+	padding: 10px 30%;
 }
 
+h3{
+	color: #383E40;
+}
 textarea{
 	border-color: #59A5A5;
 	resize: none;
