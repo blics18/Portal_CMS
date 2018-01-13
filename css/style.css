@@ -31,7 +31,7 @@ nav ul{
 nav ul li{
 	text-align: center;
 	display: inline;
-	padding: 10px;
+	padding: 20px;
 }
 
 nav ul li a{
@@ -68,10 +68,22 @@ header h1{
 
 section{
 	border: 1px solid #59A5A5;
-	margin: 20px;
-	background-color: rgba(89, 165, 165, 0.5);
+	margin: 20px 100px;
 	padding: 20px 0px;
 	color: #383E40;
+}
+
+#col1{
+	margin-right: 10px;
+}
+
+#col2{
+	margin-left: 10px;
+}
+
+section p{
+	margin-left: 50px;
+	margin-right: 50px;
 }
 
 footer {
@@ -84,7 +96,8 @@ footer {
 }
 
 footer h5{
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
 	margin-bottom: 0px;
+	font-size: 1.2em;
 }
