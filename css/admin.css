@@ -1,15 +1,18 @@
+/*----forms.html----*/
 body{
 	text-align: center;
 	height: 100%;
+	margin: 0px;
+	min-height: 100%;
 }
 
-div{
+.form{
 	height: 40vh;
 	padding: 20px;
 }
 
 
-input[type=email], input[type=password]{
+.form input[type=email], input[type=password]{
 	color: black;
 	margin: 10px;
 	border: none;
@@ -18,12 +21,12 @@ input[type=email], input[type=password]{
 	font-size: 15px;
 }
 
-input[type=email]:focus, input[type=password]:focus {
+.form input[type=email]:focus, input[type=password]:focus {
 	outline: none;
     border-bottom: 3px solid #59A5A5;
 }
 
-button{
+.form button{
 	margin-top: 10px;
 	width: 20%;
 	height: 40px;
@@ -32,32 +35,34 @@ button{
 	font-size: 15px;
 }
 
-button:hover{
+.form button:hover{
 	background-color: #3FBF7F;
 	color: white;
 }
 
-button:focus{
+.form button:focus{
 	outline: none;
 }
 
-hr{
+.form hr{
 	margin: 0px 40px;
 	border-top: 1px solid #59A5A5;
 }
+
+/*------editPage.html------*/
 
 header h1{
 	text-align: center;
 }
 
-div{
+.editPage{
 	padding: 10px 30%;
 }
 
-h3{
+.editPage h3{
 	color: #383E40;
 }
-textarea{
+.editPage textarea{
 	border-color: #59A5A5;
 	resize: none;
 	font-size: 15px;
@@ -65,7 +70,7 @@ textarea{
 	height: 200px;
 }
 
-input[type=text]{
+.editPage input[type=text]{
 	color: black;
 	border: none;
 	border-bottom: 1px solid #59A5A5;
@@ -73,28 +78,28 @@ input[type=text]{
 	font-size: 15px;
 }
 
-textarea:focus {
+.editPage textarea:focus {
 	outline: none;
     border: 3px solid #59A5A5;
 }
 
-input[type=text]:focus {
+.editPage input[type=text]:focus {
 	outline: none;
     border-bottom: 3px solid #59A5A5;
 }
 
-select{
+.editPage select{
 	width: 100%;
 	height: 30px;
 	border: 1px solid #59A5A5;
 }
 
-select:focus{
+.editPage select:focus{
 	outline: none;
 	border: 3px solid #59A5A5;
 }
 
-button{
+.editPage button{
 	margin-top: 20px;
 	width: 100%;
 	height: 40px;
@@ -103,17 +108,18 @@ button{
 	font-size: 15px;
 }
 
-button:hover{
+.editPage button:hover{
 	background-color: #3FBF7F;
 	color: white;
 }
 
-body{
+/*------dashboard.html-------*/
+/*body{
 	margin: 0px;
 	min-height: 100%;
 	height: 100%;
 	text-align: center;
-}
+}*/
 
 a{
 	text-decoration: none;
