@@ -1,0 +1,72 @@
+<% include header_admin %>
+
+	<header>
+			<h1>Edit Page</h1>
+		</header>
+
+		<form action="#" method="POST" enctype="text/plain">
+			<div class="editPage">
+				<h2>Navigation</h2>
+				<h3>Link 1</h3>
+				<input type="text" name="link1" placeholder="Edit Link 1">
+				<h3>Link 2</h3>
+				<input type="text" name="link2" placeholder="Edit Link 2">
+				<h3>Link 3</h3>
+				<input type="text" name="link3" placeholder="Edit Link 3">
+			</div>
+
+			<div class="editPage">
+				<h2>Title</h2>
+				<input type="text" name="title" placeholder="Edit Title">
+			</div>
+
+			<div class="editPage">
+				<h2>Body</h2>
+				<h3>Section 1 Title</h3>
+				<input type="text" name="section1_title" placeholder="Edit Section 1 Title">
+				<h3>Section 1 Body</h3>
+				<textarea name="section1_body" placeholder="Edit Section 1 Body"></textarea>
+
+				<h3>Section 2 Title (Left)</h3>
+				<input type="text" name="section2_left_title" placeholder="Edit Section 2 Title (Left)">
+				<h3>Section 2 Body (Left)</h3>
+				<textarea name="section2_left_body" placeholder="Edit Section 2 Body (Left)"></textarea>
+
+				<h3>Section 2 Title (Right)</h3>
+				<input type="text" name="section2_right_title" placeholder="Edit Section 2 Title (Right)">
+				<h3>Section 2 Body (Right)</h3>
+				<textarea name="section2_right_body" placeholder="Edit Section 2 Body (Right)"></textarea>
+
+				<h3>Section 3 Title</h3>
+				<input type="text" name="section3_title" placeholder="Edit Section 3 Title">
+				<h3>Section 3 Body</h3>
+				<textarea name="section3_body" placeholder="Edit Section 3 Body"></textarea>
+			</div>
+
+			<div class="editPage">
+				<h2>Footer</h2>
+				<input type="text" name="footer" placeholder="Edit Footer">
+			</div>
+
+			<div class="editPage">
+				<h2>URL</h2>
+				<input type="text" name="url" placeholder="Edit URL">
+			</div>
+
+			<div class="editPage">
+				<h2>Template</h2>
+				<select name="template">
+					<option disabled selected>Please select a template</option>
+					<option>Template A</option>
+					<option>Template B</option>
+					<option>Template C</option>
+				</select>
+			</div>
+
+			<div class="editPage">
+				<button type="submit">Save</button>
+			</div>
+
+		</form>
+
+<% include footer %>
