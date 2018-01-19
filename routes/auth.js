@@ -31,7 +31,7 @@ router.post('/login', function(req, res){
 		if (err) return console.error(err);
 		if (user.length == 0){
 			console.log(user);
-			res.redirect('back');
+			res.redirect('/auth');
 		}else{
 			console.log(user);
 			res.redirect('/admin');
