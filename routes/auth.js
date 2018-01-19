@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 
-var userSchema = mongoose.Schema({ 
+var userSchema = mongoose.Schema({
 		email: String,
 		password: String
 });
@@ -32,11 +32,12 @@ router.post('/login', function(req, res){
 		if (err) return console.error(err);
 		if (user.length == 0){
 			console.log(user);
-			// res.render('auth');	
-			res.send("CANNOT LOGIN");
-		}
-		console.log(user);
-		res.redirect('/admin');
+			res.redirect('back');
+			// res.send("CANNOT LOGIN");
+		}else{
+			console.log(user);
+			res.redirect('/admin');
+		};
 	});
 });
 
