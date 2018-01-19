@@ -12,7 +12,7 @@ body{
 }
 
 
-.form input[type=email], input[type=password]{
+.form input[type=email], input[type=password], input[type=text]{
 	color: black;
 	margin: 10px;
 	border: none;
@@ -21,7 +21,7 @@ body{
 	font-size: 15px;
 }
 
-.form input[type=email]:focus, input[type=password]:focus {
+.form input[type=email]:focus, input[type=password]:focus, input[type=text]:focus{
 	outline: none;
     border-bottom: 3px solid #59A5A5;
 }
@@ -201,8 +201,8 @@ tr:nth-child(even) {
 }
 
 .edit{
-    background-color: white; 
-    color: #4CAF50; 
+    background-color: white;
+    color: #4CAF50;
     border: 2px solid #4CAF50;
 }
 
@@ -212,8 +212,8 @@ tr:nth-child(even) {
 }
 
 .visibility {
-    background-color: white; 
-    color: #008CBA; 
+    background-color: white;
+    color: #008CBA;
     border: 2px solid #008CBA;
 }
 
@@ -223,8 +223,8 @@ tr:nth-child(even) {
 }
 
 .delete {
-    background-color: white; 
-    color: #f44336; 
+    background-color: white;
+    color: #f44336;
     border: 2px solid #f44336;
 }
 
@@ -232,6 +232,3 @@ tr:nth-child(even) {
     background-color: #f44336;
     color: white;
 }
-
-
-

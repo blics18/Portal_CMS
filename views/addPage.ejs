@@ -1,0 +1,14 @@
+<% include header_admin %>
+
+<div class="form">
+	<h1>Add Page</h1>
+	<form action="/admin/addPage" method="POST">
+		<input type="text" name="title" placeholder="Title of Page" required>
+		<br>
+		<input type="text" name="url" placeholder="/URL of page" required>
+		<br>
+		<button type="submit">Add New Page</button>
+	</form>
+</div>
+
+<% include footer %>

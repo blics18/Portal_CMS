@@ -33,6 +33,7 @@ router.post('/login', function(req, res){
 		if (user.length == 0){
 			console.log(user);
 			// res.render('auth');	
+			res.send("CANNOT LOGIN");
 		}
 		console.log(user);
 		res.redirect('/admin');
