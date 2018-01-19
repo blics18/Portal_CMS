@@ -27,13 +27,11 @@ router.post('/register', function(req, res){
 });
 
 router.post('/login', function(req, res){
-	// userModel.find({'email': req.body.email, 'password': req.body.email}, function(err, user){
 		userModel.where('email').equals(req.body.email).where('password').equals(req.body.password).exec(function(err, user){
 		if (err) return console.error(err);
 		if (user.length == 0){
 			console.log(user);
 			res.redirect('back');
-			// res.send("CANNOT LOGIN");
 		}else{
 			console.log(user);
 			res.redirect('/admin');
