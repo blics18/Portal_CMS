@@ -33,5 +33,9 @@ router.post('/addPage', function(req, res, next) {
 	});
 });
 
+router.get('/editAccount', function(req, res){
+	res.render('editAccount');
+})
+
 
 module.exports = router;
