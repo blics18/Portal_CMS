@@ -1,13 +1,7 @@
 var express = require('express');
+var userModel = require('../models/user');
 var router = express.Router();
-var mongoose = require('mongoose');
 
-var userSchema = mongoose.Schema({
-		email: String,
-		password: String
-});
-
-var userModel= mongoose.model('users', userSchema);
 
 router.get('/', function(req, res, next) {
   res.render('auth');
@@ -27,15 +21,18 @@ router.post('/register', function(req, res){
 });
 
 router.post('/login', function(req, res){
-		userModel.where('email').equals(req.body.email).where('password').equals(req.body.password).exec(function(err, user){
-		if (err) return console.error(err);
-		if (user.length == 0){
-			console.log(user);
-			res.redirect('/auth');
-		}else{
-			console.log(user);
-			res.redirect('/admin');
-		};
+		userModel.findOne( {email: req.body.email, password: req.body.password}, function(err, user){
+			 if (err){
+				 res.render('auth', {authError: 'Something wrong with database'});
+				 return console.error(err);
+			 }
+			 if (user == null){
+				 console.log(user);
+		 		 res.render('auth', {authError: 'Incorrect Username or Password'});
+			 }else{
+				 	console.log(user);
+		 			res.redirect('/admin');
+			 };
 	});
 });
 

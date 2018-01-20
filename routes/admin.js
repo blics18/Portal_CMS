@@ -1,30 +1,23 @@
 var express = require('express');
+var pageModel = require('../models/page');
 var router = express.Router();
-var mongoose = require('mongoose');
-
-var pageSchema = mongoose.Schema({
-		title: String,
-		url: String
-});
-
-var pageModel= mongoose.model('page', pageSchema);
 
 router.get('/', function(req, res, next) {
   res.render('admin');
 });
 
-router.get('/editPage', function(req, res, next) {
+router.get('/editPage', function(req, res) {
   res.render('editPage');
 });
 
-router.get('/addPageForm', function(req, res){
-	res.render('addPage');
-});
-
-router.post('/addPage', function(req, res, next) {
+router.post('/addPage', function(req, res) {
   	var newPage = new pageModel({
 		title : req.body.title,
+    section_title: req.body.section1_title,
+    body: req.body.section1_body,
 		url: req.body.url,
+    footer: req.body.footer,
+    template: req.body.template
 	});
 
 	newPage.save(function(err, user){
