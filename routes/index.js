@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/:page', function(req, res){
+router.get('/:page', requireLogin, function(req, res){
   pagesModel.findOne({ url: req.params.page.trim() },
   function(err, page){
     if (err) return res.send(err);

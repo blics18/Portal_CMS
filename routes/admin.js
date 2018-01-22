@@ -17,11 +17,11 @@ router.get('/', requireLogin, function(req, res) {
 });
 });
 
-router.get('/editPage', function(req, res) {
+router.get('/editPage', requireLogin, function(req, res) {
   res.render('editPage');
 });
 
-router.post('/addPage', function(req, res) {
+router.post('/addPage', requireLogin, function(req, res) {
   	var newPage = new pageModel({
 		title : req.body.title,
     section_title: req.body.section1_title,
@@ -38,7 +38,7 @@ router.post('/addPage', function(req, res) {
 	});
 });
 
-router.get('/editAccount', function(req, res){
+router.get('/editAccount', requireLogin, function(req, res){
 	res.render('editAccount');
 });
 
