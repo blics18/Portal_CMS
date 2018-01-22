@@ -6,7 +6,8 @@ var schema = mongoose.Schema({
 		body: String,
 		url: String,
 		footer: String,
-		template: String
+		template: String,
+		user: String
 });
 
 module.exports = mongoose.model('page', schema);

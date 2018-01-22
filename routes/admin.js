@@ -1,9 +1,21 @@
 var express = require('express');
 var pageModel = require('../models/page');
+var userModel = require('../models/user');
+var requireLogin = require('../middleware/requireLogin');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.render('admin');
+router.get('/', requireLogin, function(req, res) {
+  pageModel.find({user: req.session.user.email },
+  function(err, page){
+    if (err){
+      return res.send(err);
+    };
+    console.log(page);
+    // render the dashboard page
+    res.render('admin', {
+      pages: page
+  });
+});
 });
 
 router.get('/editPage', function(req, res) {
@@ -17,7 +29,8 @@ router.post('/addPage', function(req, res) {
     body: req.body.section1_body,
 		url: req.body.url,
     footer: req.body.footer,
-    template: req.body.template
+    template: req.body.template,
+    user: req.session.user.email
 	});
 
 	newPage.save(function(err, user){
@@ -28,7 +41,11 @@ router.post('/addPage', function(req, res) {
 
 router.get('/editAccount', function(req, res){
 	res.render('editAccount');
-})
+});
 
+router.get('/logout', function(req, res){
+  req.session.reset();
+  res.redirect('/auth');
+});
 
 module.exports = router;

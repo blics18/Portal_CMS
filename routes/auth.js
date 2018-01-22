@@ -15,6 +15,8 @@ router.post('/register', function(req, res){
 
 	newUser.save(function(err, user){
 		if(err) return console.error(err);
+    // sets a cookie with the user's info
+    req.session.user = user;
 		res.redirect('/admin');
 	});
 
@@ -26,13 +28,15 @@ router.post('/login', function(req, res){
 				 res.render('auth', {authError: 'Something wrong with database'});
 				 return console.error(err);
 			 }
-			 if (user == null){
-				 console.log(user);
+       if (user){
+          // sets a cookie with the user's info
+          req.session.user = user;
+          console.log(user);
+          res.redirect('/admin');
+       }else{
+         console.log(user);
 		 		 res.render('auth', {authError: 'Incorrect Username or Password'});
-			 }else{
-				 	console.log(user);
-		 			res.redirect('/admin');
-			 };
+       };
 	});
 });
 
