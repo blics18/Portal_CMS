@@ -10,7 +10,6 @@ router.get('/', requireLogin, function(req, res) {
     if (err){
       return res.send(err);
     };
-    console.log(page);
     // render the dashboard page
     res.render('admin', {
       pages: page

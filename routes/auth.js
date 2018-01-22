@@ -34,7 +34,6 @@ router.post('/login', function(req, res){
           console.log(user);
           res.redirect('/admin');
        }else{
-         console.log(user);
 		 		 res.render('auth', {authError: 'Incorrect Username or Password'});
        };
 	});
