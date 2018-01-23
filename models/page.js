@@ -8,7 +8,8 @@ var schema = mongoose.Schema({
 		footer: {type: String, required: true},
 		template: {type: String, required: true},
 		user: {type: Object, required: true},
-		date: {type: Date, required: true}
+		date: {type: Date, required: true},
+		visible: {type: Boolean, required: true}
 });
 
 module.exports = mongoose.model('page', schema);

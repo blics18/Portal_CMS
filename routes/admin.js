@@ -32,7 +32,8 @@ router.post('/addPage', function(req, res) {
     footer: req.body.footer,
     template: req.body.template,
     user: req.user,
-    date: new Date()
+    date: new Date(),
+    visible: true
 	});
 
 	newPage.save(function(err, user){
@@ -57,5 +58,30 @@ router.get('/deletePage/:url', function(req, res){
     res.redirect('/admin');
   });
 });
+
+router.get('/visiblePage/:url', function(req, res){
+  pageModel.findOne({"user._id": req.user._id, url: req.params.url},
+    function(err, page){
+      if(err) return console.error(err);
+      if (page.visible){
+        pageModel.findOneAndUpdate(
+          {"user._id": page.user._id, url: page.url},
+          {$set: {visible: false}},
+          function(err, page){
+            if(err) return console.error(err);
+            res.redirect('/admin');
+          });
+      }else{
+        pageModel.findOneAndUpdate(
+          {"user._id": page.user._id, url: page.url},
+          {$set: {visible: true}},
+          function(err, page){
+            if(err) return console.error(err);
+            res.redirect('/admin');
+          });
+        };
+      }
+  );
+})
 
 module.exports = router;
