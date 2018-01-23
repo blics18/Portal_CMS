@@ -1,11 +1,13 @@
 var express = require('express');
 var pageModel = require('../models/page');
 var userModel = require('../models/user');
-var requireLogin = require('../middleware/requireLogin');
+var auth = require('../utils/requireLogin');
 var router = express.Router();
 
-router.get('/', requireLogin, function(req, res) {
-  pageModel.find({user: req.session.user.email },
+router.use(auth.requireLogin);
+
+router.get('/', function(req, res) {
+  pageModel.find({"user._id": req.user._id },
   function(err, page){
     if (err){
       return res.send(err);
@@ -17,11 +19,11 @@ router.get('/', requireLogin, function(req, res) {
 });
 });
 
-router.get('/editPage', requireLogin, function(req, res) {
+router.get('/editPage', function(req, res) {
   res.render('editPage');
 });
 
-router.post('/addPage', requireLogin, function(req, res) {
+router.post('/addPage', function(req, res) {
   	var newPage = new pageModel({
 		title : req.body.title,
     section_title: req.body.section1_title,
@@ -29,7 +31,7 @@ router.post('/addPage', requireLogin, function(req, res) {
 		url: req.body.url,
     footer: req.body.footer,
     template: req.body.template,
-    user: req.session.user.email
+    user: req.user
 	});
 
 	newPage.save(function(err, user){
@@ -38,7 +40,7 @@ router.post('/addPage', requireLogin, function(req, res) {
 	});
 });
 
-router.get('/editAccount', requireLogin, function(req, res){
+router.get('/editAccount', function(req, res){
 	res.render('editAccount');
 });
 

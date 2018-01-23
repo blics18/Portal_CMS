@@ -1,7 +1,10 @@
 var express = require('express');
+var auth = require('../utils/requireLogin');
 var router = express.Router();
 
-router.get('/', requireLogin, function(req, res, next) {
+router.use(auth.requireLogin);
+
+router.get('/', function(req, res, next) {
   res.render('template');
 });
 

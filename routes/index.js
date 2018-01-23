@@ -1,13 +1,16 @@
 var express = require('express');
 var pagesModel = require('../models/page');
+var auth = require('../utils/requireLogin');
 var router = express.Router();
+
+router.use(auth.requireLogin);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.redirect('/auth');
 });
 
-router.get('/:page', requireLogin, function(req, res){
+router.get('/:page', function(req, res){
   pagesModel.findOne({ url: req.params.page.trim() },
   function(err, page){
     if (err) return res.send(err);
