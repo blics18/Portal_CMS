@@ -31,7 +31,8 @@ router.post('/addPage', function(req, res) {
 		url: req.body.url,
     footer: req.body.footer,
     template: req.body.template,
-    user: req.user
+    user: req.user,
+    date: new Date()
 	});
 
 	newPage.save(function(err, user){
@@ -47,6 +48,14 @@ router.get('/editAccount', function(req, res){
 router.get('/logout', function(req, res){
   req.session.reset();
   res.redirect('/auth');
+});
+
+router.get('/deletePage/:url', function(req, res){
+  pageModel.remove( {"user._id": req.user._id, url: req.params.url},
+   function(err, isDeleted){
+    if(err) return console.error(err);
+    res.redirect('/admin');
+  });
 });
 
 module.exports = router;

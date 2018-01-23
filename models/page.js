@@ -7,7 +7,8 @@ var schema = mongoose.Schema({
 		url: {type: String, required: true},
 		footer: {type: String, required: true},
 		template: {type: String, required: true},
-		user: {type: Object, required: true}
+		user: {type: Object, required: true},
+		date: {type: Date, required: true}
 });
 
 module.exports = mongoose.model('page', schema);
