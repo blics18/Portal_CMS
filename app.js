@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res, next) {
   if (req.session && req.session.user) {
-    userModel.findOne({ email: req.session.user.email }, function(err, user) {
+    userModel.findOne({ _id: req.session.user._id }, function(err, user) {
       if (user) {
         req.user = user.toObject();
         delete req.user.password; // delete the password from the session

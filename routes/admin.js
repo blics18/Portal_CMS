@@ -98,16 +98,12 @@ router.get('/editAccount', function(req, res){
 	res.render('editAccount');
 });
 
-//TODO:change endpoint
-router.post('/submitEdit', function(req, res){
+router.post('/editCurrentAccount', function(req, res){
   userModel.findOneAndUpdate(
     {_id: req.user._id},
     {$set: {email: req.body.email, password: req.body.password}},
     function(err, user){
       if(err) return console.error(err);
-
-      //not necessary
-      req.session.user.email = req.body.email;
     }
   );
 
