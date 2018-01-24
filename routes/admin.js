@@ -53,10 +53,19 @@ router.post('/submitEdit', function(req, res){
     function(err, user){
       if(err) return console.error(err);
       req.session.user.email = req.body.email;
-  		res.redirect('/admin');
     }
-  )
-})
+  );
+
+  //update user's pages with new email
+  pageModel.updateMany(
+    {"user._id": req.user._id},
+    {$set: {"user.email": req.body.email}},
+    function(err, user){
+      if(err) return console.error(err);
+      res.redirect('/admin');
+    }
+  );
+});
 
 router.get('/logout', function(req, res){
   req.session.reset();
