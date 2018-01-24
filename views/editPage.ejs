@@ -1,31 +1,43 @@
 <% include header_admin %>
 
 	<header>
+		<% if (title) { %>
+			<h1>Edit <%= title %> Page </h1>
+		<% }else{ %>
 			<h1>Edit Page</h1>
+		<% } %>
 		</header>
 
-		<form action="/admin/addPage" method="POST">
-			<!-- <div class="editPage">
-				<h2>Navigation</h2>
-				<h3>Link 1</h3>
-				<input type="text" name="link1" placeholder="Edit Link 1">
-				<h3>Link 2</h3>
-				<input type="text" name="link2" placeholder="Edit Link 2">
-				<h3>Link 3</h3>
-				<input type="text" name="link3" placeholder="Edit Link 3">
-			</div> -->
+		<% if (url) { %>
+			<form action="/admin/addPage/<%= url %>" method="POST">
+		<% }else{ %>
+			<form action="/admin/addPage/newPage" method="POST">
+		<% } %>
 
 			<div class="editPage">
 				<h2>Title</h2>
-				<input type="text" name="title" placeholder="Edit Title">
+				<% if (title) { %>
+					<input type="text" name="title" value="<%= title %>">
+				<% }else{ %>
+					<input type="text" name="title" placeholder="Edit Title">
+				<% } %>
 			</div>
 
 			<div class="editPage">
 				<h2>Body</h2>
 				<h3>Section 1 Title</h3>
-				<input type="text" name="section1_title" placeholder="Edit Section 1 Title">
+				<% if (section_title) { %>
+					<input type="text" name="section1_title" value="<%= section_title %>">
+				<% }else{ %>
+					<input type="text" name="section1_title" placeholder="Edit Section 1 Title">
+				<% } %>
+
 				<h3>Section 1 Body</h3>
-				<textarea name="section1_body" placeholder="Edit Section 1 Body"></textarea>
+				<% if (body) { %>
+						<textarea name="section1_body"><%= body %></textarea>
+				<% }else{ %>
+						<textarea name="section1_body" placeholder="Edit Section 1 Body"></textarea>
+				<% } %>
 
 				<!-- <h3>Section 2 Title (Left)</h3>
 				<input type="text" name="section2_left_title" placeholder="Edit Section 2 Title (Left)">
@@ -45,21 +57,46 @@
 
 			<div class="editPage">
 				<h2>Footer</h2>
-				<input type="text" name="footer" placeholder="Edit Footer">
+				<% if (footer) { %>
+					<input type="text" name="footer" value="<%= footer %>">
+				<% }else{ %>
+					<input type="text" name="footer" placeholder="Edit Footer">
+				<% } %>
 			</div>
 
 			<div class="editPage">
 				<h2>URL</h2>
-				<input type="text" name="url" placeholder="Edit URL">
+				<% if (url) { %>
+					<input type="text" name="url" value="<%= url %>">
+				<% }else{ %>
+					<input type="text" name="url" placeholder="Edit URL">
+				<% } %>
 			</div>
 
 			<div class="editPage">
 				<h2>Template</h2>
 				<select name="template">
-					<option disabled selected>Please select a template</option>
-					<option>Template A</option>
-					<option>Template B</option>
-					<option>Template C</option>
+					<% if (template == "Template A") { %>
+						<option disabled>Please select a template</option>
+						<option selected>Template A</option>
+						<option>Template B</option>
+						<option>Template C</option>
+					<% }else if (template == "Template B"){ %>
+						<option disabled>Please select a template</option>
+						<option>Template A</option>
+						<option selected>Template B</option>
+						<option>Template C</option>
+					<% }else if (template == "Template C"){ %>
+						<option disabled>Please select a template</option>
+						<option>Template A</option>
+						<option>Template B</option>
+						<option selected>Template C</option>
+					<% } else{ %>
+						<option disabled selected>Please select a template</option>
+						<option>Template A</option>
+						<option>Template B</option>
+						<option>Template C</option>
+					<% } %>
 				</select>
 			</div>
 

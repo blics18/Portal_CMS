@@ -29,7 +29,7 @@
 			  		<% } %>
 			  		<td><%= pages[i].date %></td>
 			  		<td>
-				  			<a href="#" class="button edit">Edit</a>
+				  			<a href="/admin/editPage/<%= pages[i].url %>" class="button edit">Edit</a>
 								<a href="/admin/visiblePage/<%= pages[i].url %>" class="button visibility">Visibility</a>
 								<a href="/admin/deletePage/<%= pages[i].url%>" class="button delete">Delete</a>
 					</td>
