@@ -22,6 +22,7 @@ router.get('/', function(req, res) {
 //add new page button gets here; blank form
 router.get('/editPage', function(req, res) {
   res.render('editPage', {
+    id: "",
     title: "",
     section_title: "",
     body: "",
@@ -31,15 +32,16 @@ router.get('/editPage', function(req, res) {
   });
 });
 
-//edit existing page 
-router.get('/editPage/:url', function(req, res){
+//edit existing page
+router.get('/editPage/:id', function(req, res){
   pageModel.findOne({
     "user._id": req.user._id,
-    url: req.params.url
+    _id: req.params.id
   }, function(err, page){
     if (err) return res.send(err);
     if (page){
         res.render('editPage', {
+          id: page._id,
           title: page.title,
           section_title: page.section_title,
           body: page.body,
@@ -51,28 +53,28 @@ router.get('/editPage/:url', function(req, res){
   });
 });
 
-router.post('/addPage/:oldUrl', function(req, res) {
-  if (req.params.oldUrl != "newPage"){
-    //find page and update it
-    pageModel.findOneAndUpdate(
-      {"user._id": req.user._id, url: req.params.oldUrl},
-      {$set: {
-        title : req.body.title,
-        section_title: req.body.section1_title,
-        body: req.body.section1_body,
-      	url: req.body.url,
-        footer: req.body.footer,
-        template: req.body.template,
-        user: req.user,
-        date: new Date(),
-        visible: true}},
-      function(err, page){
-        if(err) return console.error(err);
-        res.redirect('/admin');
-      }
-    );
-  }else{
+router.post('/editCurrentPage/:id', function(req,res){
+  //find page and update it
+  pageModel.findOneAndUpdate(
+    {"user._id": req.user._id, _id: req.params.id},
+    {$set: {
+      title : req.body.title,
+      section_title: req.body.section1_title,
+      body: req.body.section1_body,
+      url: req.body.url,
+      footer: req.body.footer,
+      template: req.body.template,
+      user: req.user,
+      date: new Date(),
+      visible: true}},
+    function(err, page){
+      if(err) return console.error(err);
+      res.redirect('/admin');
+    }
+  );
+});
 
+router.post('/addPage', function(req, res) {
     //add new page to database
     var newPage = new pageModel({
   	title : req.body.title,
@@ -90,20 +92,21 @@ router.post('/addPage/:oldUrl', function(req, res) {
     	if(err) return console.error(err);
     	res.redirect('/admin');
     });
-  }
-
 });
 
 router.get('/editAccount', function(req, res){
 	res.render('editAccount');
 });
 
+//TODO:change endpoint
 router.post('/submitEdit', function(req, res){
   userModel.findOneAndUpdate(
     {_id: req.user._id},
     {$set: {email: req.body.email, password: req.body.password}},
     function(err, user){
       if(err) return console.error(err);
+
+      //not necessary
       req.session.user.email = req.body.email;
     }
   );
@@ -124,16 +127,16 @@ router.get('/logout', function(req, res){
   res.redirect('/auth');
 });
 
-router.get('/deletePage/:url', function(req, res){
-  pageModel.remove( {"user._id": req.user._id, url: req.params.url},
+router.get('/deletePage/:id', function(req, res){
+  pageModel.remove( {"user._id": req.user._id, _id: req.params.id},
    function(err, isDeleted){
     if(err) return console.error(err);
     res.redirect('/admin');
   });
 });
 
-router.get('/visiblePage/:url', function(req, res){
-  pageModel.findOne({"user._id": req.user._id, url: req.params.url},
+router.get('/visiblePage/:id', function(req, res){
+  pageModel.findOne({"user._id": req.user._id, _id: req.params.id},
     function(err, page){
       if(err) return console.error(err);
       if (page.visible){

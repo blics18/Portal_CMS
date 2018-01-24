@@ -1,17 +1,17 @@
 <% include header_admin %>
 
 	<header>
-		<% if (title) { %>
+		<% if (id) { %>
 			<h1>Edit <%= title %> Page </h1>
 		<% }else{ %>
-			<h1>Edit Page</h1>
+			<h1>Add New Page</h1>
 		<% } %>
 		</header>
 
-		<% if (url) { %>
-			<form action="/admin/addPage/<%= url %>" method="POST">
+		<% if (id) { %>
+			<form action="/admin/editCurrentPage/<%= id %>" method="POST">
 		<% }else{ %>
-			<form action="/admin/addPage/newPage" method="POST">
+			<form action="/admin/addPage" method="POST">
 		<% } %>
 
 			<div class="editPage">

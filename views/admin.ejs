@@ -23,15 +23,15 @@
 				<% for (var i = 0; i < pages.length; i++){ %>
 			  	<tr>
 						<% if (pages[i].visible) { %>
-							<td><a href="/<%= pages[i].title %>" class="pages"><%= pages[i].title %></a></td>
+							<td><a href="/<%= pages[i].url %>" class="pages"><%= pages[i].title %></a></td>
 						<% }else{ %>
 							<td><%= pages[i].title %></td>
 			  		<% } %>
 			  		<td><%= pages[i].date %></td>
 			  		<td>
-				  			<a href="/admin/editPage/<%= pages[i].url %>" class="button edit">Edit</a>
-								<a href="/admin/visiblePage/<%= pages[i].url %>" class="button visibility">Visibility</a>
-								<a href="/admin/deletePage/<%= pages[i].url%>" class="button delete">Delete</a>
+				  			<a href="/admin/editPage/<%= pages[i]._id %>" class="button edit">Edit</a>
+								<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility">Visibility</a>
+								<a href="/admin/deletePage/<%= pages[i]._id%>" class="button delete">Delete</a>
 					</td>
 			  	</tr>
 				<% } %>
