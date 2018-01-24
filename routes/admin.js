@@ -46,6 +46,18 @@ router.get('/editAccount', function(req, res){
 	res.render('editAccount');
 });
 
+router.post('/submitEdit', function(req, res){
+  userModel.findOneAndUpdate(
+    {_id: req.user._id},
+    {$set: {email: req.body.email, password: req.body.password}},
+    function(err, user){
+      if(err) return console.error(err);
+      req.session.user.email = req.body.email;
+  		res.redirect('/admin');
+    }
+  )
+})
+
 router.get('/logout', function(req, res){
   req.session.reset();
   res.redirect('/auth');
