@@ -14,7 +14,7 @@ router.get('/:page', function(req, res){
   pagesModel.findOne({ url: req.params.page.trim() },
   function(err, page){
     if (err) return res.send(err);
-    if(page){
+    if(page.visible){
       res.render('template', {
         title: page.title,
         section_title: page.section_title,

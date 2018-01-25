@@ -12,7 +12,7 @@
 			<h1>Table of Pages</h1>
 		</header>
 
-		<div>
+		<div id="table">
 		<table>
 			<tr>
 			    <th>Title</th>
@@ -22,11 +22,7 @@
 
 				<% for (var i = 0; i < pages.length; i++){ %>
 			  	<tr>
-						<% if (pages[i].visible) { %>
-							<td><a href="/<%= pages[i].url %>" class="pages"><%= pages[i].title %></a></td>
-						<% }else{ %>
-							<td><%= pages[i].title %></td>
-			  		<% } %>
+						<td><a href="/<%= pages[i].url %>" class="pages"><%= pages[i].title %></a></td>
 			  		<td><%= pages[i].date %></td>
 			  		<td>
 				  			<a href="/admin/editPage/<%= pages[i]._id %>" class="button edit">Edit</a>

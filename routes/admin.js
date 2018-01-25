@@ -53,8 +53,8 @@ router.get('/editPage/:id', function(req, res){
   });
 });
 
+//find page and update it
 router.post('/editCurrentPage/:id', function(req,res){
-  //find page and update it
   pageModel.findOneAndUpdate(
     {"user._id": req.user._id, _id: req.params.id},
     {$set: {
@@ -68,14 +68,31 @@ router.post('/editCurrentPage/:id', function(req,res){
       date: new Date(),
       visible: true}},
     function(err, page){
-      if(err) return console.error(err);
-      res.redirect('/admin');
+      if(err){
+        if(err.code === 11000){ //duplicate url
+          res.render('editPage', {
+            id: "",
+            title: req.body.title,
+            section_title: req.body.section1_title,
+            body: req.body.section1_body,
+            url: "",
+            footer: req.body.footer,
+            template: req.body.template,
+            err: `URL (${req.body.url.trim()}) already exists. Enter another`
+          })
+        }
+        return console.error(err);
+      }
+      else{
+        res.redirect('/admin');
+      }
+
     }
   );
 });
 
+//add new page to database
 router.post('/addPage', function(req, res) {
-    //add new page to database
     var newPage = new pageModel({
   	title : req.body.title,
     section_title: req.body.section1_title,
@@ -89,7 +106,21 @@ router.post('/addPage', function(req, res) {
     });
 
     newPage.save(function(err, user){
-    	if(err) return console.error(err);
+    	if(err){
+        if(err.code === 11000){ //duplicate url
+          res.render('editPage', {
+            id: "",
+            title: req.body.title,
+            section_title: req.body.section1_title,
+            body: req.body.section1_body,
+            url: "",
+            footer: req.body.footer,
+            template: req.body.template,
+            err: `URL (${req.body.url.trim()}) already exists. Enter another`
+          })
+        }
+        return console.error(err);
+      }
     	res.redirect('/admin');
     });
 });
@@ -104,8 +135,7 @@ router.post('/editCurrentAccount', function(req, res){
     {$set: {email: req.body.email, password: req.body.password}},
     function(err, user){
       if(err) return console.error(err);
-    }
-  );
+    });
 
   //update user's pages with new email
   pageModel.updateMany(
