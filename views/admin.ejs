@@ -1,7 +1,17 @@
 <% include header_admin %>
 
-	<nav>
-			<ul>
+		<nav id="nav">
+			<ul id="navigation">
+				<li class="dropdown">
+					<a href="#">Pages</a>
+						<ul>
+						<% for (var i = 0; i < pages.length; i++) { %>
+							<% if (pages[i].visible) { %>
+								<li><a href="/<%= pages[i].url %>"><%= pages[i].title %></a></li>
+								<% } %>
+						<% } %>
+						</ul>
+				</li>
 				<li><a href="/admin/editPage">Add New Page</a></li>
 				<li><a href="/admin/editAccount">Edit Account</a></li>
 				<li><a href="/admin/logout">Logout</a></li>
@@ -26,9 +36,13 @@
 			  		<td><%= pages[i].date %></td>
 			  		<td>
 				  			<a href="/admin/editPage/<%= pages[i]._id %>" class="button edit">Edit</a>
-								<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility">Visibility</a>
+								<% if (pages[i].visible) { %>
+									<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility">Visibility</a>
+								<% }else{ %>
+									<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility" id="notVisible">Visibility</a>
+								<% } %>
 								<a href="/admin/deletePage/<%= pages[i]._id%>" class="button delete">Delete</a>
-					</td>
+						</td>
 			  	</tr>
 				<% } %>
 

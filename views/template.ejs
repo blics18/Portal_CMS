@@ -6,7 +6,9 @@
 					<a href="#">Pages</a>
 						<ul>
 						<% for (var i = 0; i < pages.length; i++) { %>
-							<li><a href="/<%= pages[i].url %>"><%= pages[i].title %></a></li>
+							<% if (pages[i].visible) { %>
+								<li><a href="/<%= pages[i].url %>"><%= pages[i].title %></a></li>
+							<% } %>
 						<% } %>
 						</ul>
 				</li>
