@@ -11,7 +11,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var auth = require('./routes/auth');
 var admin = require('./routes/admin');
-var template = require('./routes/template');
 
 var userModel = require('./models/user');
 
@@ -70,7 +69,6 @@ app.use(function(req, res, next) {
 app.use('/users', users);
 app.use('/auth', auth);
 app.use('/admin', admin);
-app.use('/template', template);
 app.use('/', index);
 
 

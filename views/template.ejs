@@ -1,10 +1,17 @@
 <% include header %>
 
-	<nav>
-			<ul>
-				<li><a href="#section1">Section 1</a></li>
-				<li><a href="#section2">Section 2</a></li>
-				<li><a href="#section3">Section 3</a></li>
+	<nav id="nav">
+			<ul id="navigation">
+				<li class="dropdown">
+					<a href="#">Pages</a>
+						<ul>
+						<% for (var i = 0; i < pages.length; i++) { %>
+							<li><a href="/<%= pages[i].url %>"><%= pages[i].title %></a></li>
+						<% } %>
+						</ul>
+				</li>
+				<li><a href="/admin">Admin Dashboard</a></li>
+				<li><a href="/admin/logout">Logout</a></li>
 			</ul>
 		</nav>
 
@@ -42,7 +49,7 @@
 		</div>
 
 		<footer>
-			<h5><% footer %></h5>
+			<h5><%= footer %></h5>
 		</footer>
 
 <% include footer %>

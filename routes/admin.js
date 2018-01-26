@@ -184,6 +184,6 @@ router.get('/visiblePage/:id', function(req, res){
         };
       }
   );
-})
+});
 
 module.exports = router;
