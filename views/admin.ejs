@@ -48,5 +48,88 @@
 
 		</table>
 		</div>
+		<header>
+				<h1>Add New Page</h1>
+			</header>
 
+				<form id="editPage-form">
+
+				<div class="editPage">
+					<h2>Title</h2>
+						<input class="title" type="text" name="title" placeholder="Edit Title">
+				</div>
+
+				<div class="editPage">
+					<h2>Body</h2>
+					<h3>Section 1 Title</h3>
+						<input class="section1_title" type="text" name="section1_title" placeholder="Edit Section 1 Title">
+
+					<h3>Section 1 Body</h3>
+							<textarea class="section1_body" name="section1_body" placeholder="Edit Section 1 Body"></textarea>
+
+					<!-- <h3>Section 2 Title (Left)</h3>
+					<input type="text" name="section2_left_title" placeholder="Edit Section 2 Title (Left)">
+					<h3>Section 2 Body (Left)</h3>
+					<textarea name="section2_left_body" placeholder="Edit Section 2 Body (Left)"></textarea>
+
+					<h3>Section 2 Title (Right)</h3>
+					<input type="text" name="section2_right_title" placeholder="Edit Section 2 Title (Right)">
+					<h3>Section 2 Body (Right)</h3>
+					<textarea name="section2_right_body" placeholder="Edit Section 2 Body (Right)"></textarea>
+
+					<h3>Section 3 Title</h3>
+					<input type="text" name="section3_title" placeholder="Edit Section 3 Title">
+					<h3>Section 3 Body</h3>
+					<textarea name="section3_body" placeholder="Edit Section 3 Body"></textarea> -->
+				</div>
+
+				<div class="editPage">
+					<h2>Footer</h2>
+						<input class="footer" type="text" name="footer" placeholder="Edit Footer">
+				</div>
+
+				<div class="editPage">
+					<h2>URL</h2>
+						<div class="auth-error-container">
+						</div>
+						<input class="url" type="text" name="url" placeholder="Edit URL">
+				</div>
+
+				<div class="editPage">
+					<h2>Template</h2>
+					<select class="template" name="template">
+							<option disabled selected>Please select a template</option>
+							<option>Template A</option>
+							<option>Template B</option>
+							<option>Template C</option>
+					</select>
+				</div>
+
+				<div class="editPage">
+					<button id="btn-addPage">Save</button>
+				</div>
+
+			</form>
+
+
+<script>
+	$(document).ready(function(){
+		$('#btn-addPage').on('click', function(event){
+			$.ajax({
+				type: "POST",
+				url: "/admin/addPage",
+				data: $('#editPage-form').serialize(),
+				dataType: "json",
+			})
+			.done(function(json){
+				$(table).append('<tr><td><a href="/'+ json.url + '" class="pages">' + json.title + '</a></td><td>' + json.date + '</td><td><a href="/admin/editPage/' +  json._id + '" class="button edit">Edit</a><a href="/admin/visiblePage/' + json._id + '" class="button visibility">Visibility</a><a href="/admin/deletePage/' + json._id + '" class="button delete">Delete</a></td></tr>');
+				$('#editPage-form')[0].reset();
+			})
+			.fail(function(response) {
+
+ 		})
+		 event.preventDefault();
+		});
+	});
+</script>
 <% include footer %>

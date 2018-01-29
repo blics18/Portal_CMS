@@ -94,12 +94,12 @@ router.post('/editCurrentPage/:id', function(req,res){
 //add new page to database
 router.post('/addPage', function(req, res) {
     var newPage = new pageModel({
-  	title : req.body.title,
-    section_title: req.body.section1_title,
-    body: req.body.section1_body,
-  	url: req.body.url,
-    footer: req.body.footer,
-    template: req.body.template,
+  	title : req.body.title.trim(),
+    section_title: req.body.section1_title.trim(),
+    body: req.body.section1_body.trim(),
+  	url: req.body.url.trim(),
+    footer: req.body.footer.trim(),
+    template: req.body.template.trim(),
     user: req.user,
     date: new Date(),
     visible: true
@@ -121,7 +121,7 @@ router.post('/addPage', function(req, res) {
         }
         return console.error(err);
       }
-    	res.redirect('/admin');
+      res.send(JSON.stringify(user));
     });
 });
 
