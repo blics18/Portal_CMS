@@ -12,7 +12,7 @@
 						<% } %>
 						</ul>
 				</li>
-				<li><a href="/admin/editPage">Add New Page</a></li>
+				<li><a href="#" id="addPage-link">Add New Page</a></li>
 				<li><a href="/admin/editAccount">Edit Account</a></li>
 				<li><a href="/admin/logout">Logout</a></li>
 			</ul>
@@ -22,94 +22,144 @@
 			<h1>Table of Pages</h1>
 		</header>
 
-		<div id="table">
-		<table>
-			<tr>
-			    <th>Title</th>
-			    <th>Updated</th>
-			    <th>Options</th>
-		  	</tr>
+				<!-- The Modal -->
+		<div id="addPageModal" class="modal">
 
-				<% for (var i = 0; i < pages.length; i++){ %>
-			  	<tr>
-						<td><a href="/<%= pages[i].url %>" class="pages"><%= pages[i].title %></a></td>
-			  		<td><%= pages[i].date %></td>
-			  		<td>
-				  			<a href="/admin/editPage/<%= pages[i]._id %>" class="button edit">Edit</a>
-								<% if (pages[i].visible) { %>
-									<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility">Visibility</a>
-								<% }else{ %>
-									<a href="/admin/visiblePage/<%= pages[i]._id %>" class="button visibility" id="notVisible">Visibility</a>
-								<% } %>
-								<a href="/admin/deletePage/<%= pages[i]._id%>" class="button delete">Delete</a>
-						</td>
-			  	</tr>
-				<% } %>
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="close">&times;</span>
+				<header>
+						<h1>Add New Page</h1>
+				</header>
 
-		</table>
-		</div>
-		<header>
-				<h1>Add New Page</h1>
-			</header>
+				<form id="addPage-form">
 
-				<form id="editPage-form">
-
-				<div class="editPage">
-					<h2>Title</h2>
-						<input class="title" type="text" name="title" placeholder="Edit Title">
-				</div>
-
-				<div class="editPage">
-					<h2>Body</h2>
-					<h3>Section 1 Title</h3>
-						<input class="section1_title" type="text" name="section1_title" placeholder="Edit Section 1 Title">
-
-					<h3>Section 1 Body</h3>
-							<textarea class="section1_body" name="section1_body" placeholder="Edit Section 1 Body"></textarea>
-
-					<!-- <h3>Section 2 Title (Left)</h3>
-					<input type="text" name="section2_left_title" placeholder="Edit Section 2 Title (Left)">
-					<h3>Section 2 Body (Left)</h3>
-					<textarea name="section2_left_body" placeholder="Edit Section 2 Body (Left)"></textarea>
-
-					<h3>Section 2 Title (Right)</h3>
-					<input type="text" name="section2_right_title" placeholder="Edit Section 2 Title (Right)">
-					<h3>Section 2 Body (Right)</h3>
-					<textarea name="section2_right_body" placeholder="Edit Section 2 Body (Right)"></textarea>
-
-					<h3>Section 3 Title</h3>
-					<input type="text" name="section3_title" placeholder="Edit Section 3 Title">
-					<h3>Section 3 Body</h3>
-					<textarea name="section3_body" placeholder="Edit Section 3 Body"></textarea> -->
-				</div>
-
-				<div class="editPage">
-					<h2>Footer</h2>
-						<input class="footer" type="text" name="footer" placeholder="Edit Footer">
-				</div>
-
-				<div class="editPage">
-					<h2>URL</h2>
-						<div class="auth-error-container">
+						<div class="editPage">
+							<h2>Title</h2>
+								<input class="title" type="text" name="title" placeholder="Edit Title">
 						</div>
-						<input class="url" type="text" name="url" placeholder="Edit URL">
-				</div>
 
-				<div class="editPage">
-					<h2>Template</h2>
-					<select class="template" name="template">
-							<option disabled selected>Please select a template</option>
-							<option>Template A</option>
-							<option>Template B</option>
-							<option>Template C</option>
-					</select>
-				</div>
+						<div class="editPage">
+							<h2>Body</h2>
+							<h3>Section 1 Title</h3>
+								<input class="section1_title" type="text" name="section1_title" placeholder="Edit Section 1 Title">
 
-				<div class="editPage">
-					<button id="btn-addPage">Save</button>
-				</div>
+							<h3>Section 1 Body</h3>
+									<textarea class="section1_body" name="section1_body" placeholder="Edit Section 1 Body"></textarea>
+						</div>
 
-			</form>
+						<div class="editPage">
+							<h2>Footer</h2>
+								<input class="footer" type="text" name="footer" placeholder="Edit Footer">
+						</div>
+
+						<div class="editPage">
+							<h2>URL</h2>
+								<div class="auth-error-container">
+								</div>
+								<input class="url" type="text" name="url" placeholder="Edit URL">
+						</div>
+
+						<div class="editPage">
+							<h2>Template</h2>
+							<select class="template" name="template">
+									<option disabled selected>Please select a template</option>
+									<option>Template A</option>
+									<option>Template B</option>
+									<option>Template C</option>
+							</select>
+						</div>
+
+						<div class="editPage buttons">
+							<button id="btn-cancelAddPage">Cancel</button>
+							<button id="btn-addPage">Save</button>
+						</div>
+
+				</form>
+		  </div>
+
+		</div>
+
+		<div id="table">
+			<table id="target-table">
+				<tr>
+				    <th>Title</th>
+				    <th>Updated</th>
+				    <th>Options</th>
+			  	</tr>
+
+					<% for (var i = 0; i < pages.length; i++){ %>
+				  	<tr>
+							<td><a href="/<%= pages[i].url %>" class="pages" id="<%= pages[i]._id %>"><%= pages[i].title %></a></td>
+				  		<td><%= pages[i].date %></td>
+				  		<td>
+					  			<button class="button edit btn-edit" data-page-id="<%= pages[i]._id %>">Edit</button>
+									<% if (pages[i].visible) { %>
+										<button class="button visibility btn-visible"  data-page-id="<%= pages[i]._id %>">Visibility</button>
+									<% }else{ %>
+										<button class="button visibility btn-visible"  data-page-id="<%= pages[i]._id %>" id="notVisible">Visibility</button>
+									<% } %>
+									<button class="button delete btn-delete" data-page-id="<%= pages[i]._id %>">Delete</button>
+							</td>
+				  	</tr>
+					<% } %>
+
+			</table>
+		</div>
+
+		<!-- Edit Modal -->
+		<div id="editModal" class="modal">
+
+		  <!-- Modal content -->
+		  <div class="modal-content">
+		    <span class="editClose">&times;</span>
+				<header>
+						<h1>Edit Page </h1>
+				</header>
+
+						<form  id="editPage-form">
+
+						<div class="editPage">
+							<h2>Title</h2>
+								<input type="text" name="title" placeholder="Enter Title">
+						</div>
+
+						<div class="editPage">
+							<h2>Body</h2>
+							<h3>Section 1 Title</h3>
+								<input type="text" name="section1_title">
+
+							<h3>Section 1 Body</h3>
+									<textarea name="section1_body"></textarea>
+						</div>
+
+						<div class="editPage">
+							<h2>Footer</h2>
+								<input type="text" name="footer">
+						</div>
+
+						<div class="editPage">
+							<h2>URL</h2>
+								<input type="text" name="url">
+						</div>
+
+						<div class="editPage">
+							<h2>Template</h2>
+							<select name="template">
+									<option disabled selected>Please select a template</option>
+									<option>Template A</option>
+									<option>Template B</option>
+									<option>Template C</option>
+							</select>
+						</div>
+
+						<div class="editPage">
+							<button id="btn-cancelEditPage">Cancel</button>
+							<button id="btn-editPage" data-page-id="">Save</button>
+						</div>
+		  </div>
+
+		</div>
 
 
 <script>
@@ -118,18 +168,147 @@
 			$.ajax({
 				type: "POST",
 				url: "/admin/addPage",
-				data: $('#editPage-form').serialize(),
+				data: $('#addPage-form').serialize(),
 				dataType: "json",
 			})
 			.done(function(json){
-				$(table).append('<tr><td><a href="/'+ json.url + '" class="pages">' + json.title + '</a></td><td>' + json.date + '</td><td><a href="/admin/editPage/' +  json._id + '" class="button edit">Edit</a><a href="/admin/visiblePage/' + json._id + '" class="button visibility">Visibility</a><a href="/admin/deletePage/' + json._id + '" class="button delete">Delete</a></td></tr>');
-				$('#editPage-form')[0].reset();
+				$('table').append('<tr><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + json.title + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><% if (' + json.visible + ') { %><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><% }else{ %><button class="button visibility btn-visible"  data-page-id="' + json._id + '" id="notVisible">Visibility</button><% } %><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
+				var modal = $('#addPageModal')[0];
+				modal.style.display = "none";
+				$('#addPage-form')[0].reset();
 			})
 			.fail(function(response) {
 
  		})
 		 event.preventDefault();
 		});
+
+		$('#btn-cancelAddPage').on('click', function(event){
+			var modal = $('#addPageModal')[0];
+			modal.style.display = "none";
+			$('#addPage-form')[0].reset();
+			event.preventDefault();
+		});
+
+		$('#btn-cancelEditPage').on('click', function(event){
+			var modal = $('#editModal')[0];
+			modal.style.display = "none";
+			$('#editPage-form')[0].reset();
+			event.preventDefault();
+		});
+
+
+		$('#target-table').on('click', '.btn-delete', function(event){
+				var button = $(this);
+				var pageId = button.attr('data-page-id');
+				$.ajax({
+					type: "DELETE",
+					url: `/admin/deletePage/${pageId}`
+			})
+			.done(function(response){
+				button.parent().parent().remove();
+			})
+		});
+
+		$('#target-table').on('click', '.btn-visible', function(event){
+			var button = $(this);
+			var pageId = button.attr('data-page-id');
+			$.ajax({
+				type: "GET",
+				url: `/admin/visiblePage/${pageId}`,
+				dataType: "json"
+			})
+			.done(function(response){
+				if (response.visible){
+					button.removeAttr("id");
+				}else{
+					button.attr("id", "notVisible");
+				}
+			})
+		});
+
+
+		$('#addPage-link').on('click', function(event){
+			// Get the modal
+			var modal = $('#addPageModal')[0];
+
+			// Get the <span> element that closes the modal
+			var span = $(".close")[0];
+
+			// When the user clicks the button, open the modal
+				modal.style.display = "block";
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+					modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+					if (event.target == modal) {
+							modal.style.display = "none";
+					}
+			}
+		});
+
+		$('#btn-editPage').on('click', function(event){
+			var button = $(this);
+			var pageId = button.attr('data-page-id');
+			$.ajax({
+				type: "POST",
+				url: `/admin/editCurrentPage/${pageId}`,
+				data: $('#editPage-form').serialize(),
+				dataType: "json",
+			})
+			.done(function(json){
+				var editModal = $('#editModal')[0];
+				$("#" + json._id).replaceWith('<a href="/"' + json.url + 'class="pages" id="' + json._id + '">' + json.title + '</a>');
+				editModal.style.display = "none";
+				$('#editPage-form')[0].reset();
+			})
+		 event.preventDefault();
+		});
+
+		$('#target-table').on('click', '.btn-edit', function(event){
+			console.log(event);
+			var button = $(this);
+			var pageId = button.attr('data-page-id');
+			$.ajax({
+				type: "GET",
+				url: `/admin/editPage/${pageId}`,
+				dataType: "json"
+			})
+			.done(function(response){
+				$("#editModal [name='title']").attr("value", response.title);
+				$("#editModal [name='section1_title']").attr("value", response.section_title);
+				$("#editModal [name='section1_body']").html(response.section_title);
+				$("#editModal [name='footer']").attr("value", response.footer);
+				$("#editModal [name='url']").attr("value", response.url);
+				$('#btn-editPage').attr('data-page-id', response._id);
+				// Get the editPage modal
+				var editModal = $('#editModal')[0];
+
+				// Get the <span> element that closes the modal
+				var editSpan = $(".editClose")[0];
+
+				// When the user clicks the button, open the modal
+				editModal.style.display = "block";
+
+				// When the user clicks on <span> (x), close the modal
+				editSpan.onclick = function() {
+				    editModal.style.display = "none";
+				}
+
+				// When the user clicks anywhere outside of the modal, close it
+				window.onclick = function(event) {
+				    if (event.target == editModal) {
+				        editModal.style.display = "none";
+				    }
+				}
+			})
+		})
+
+
 	});
 </script>
 <% include footer %>

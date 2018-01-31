@@ -107,16 +107,33 @@ header h1{
 	border: 3px solid #59A5A5;
 }
 
-.editPage button{
+.editPage.buttons{
+	text-align: center;
+}
+.editPage button#btn-cancelAddPage, button#btn-cancelEditPage{
 	margin-top: 20px;
-	width: 100%;
+	width: 49%;
+	height: 40px;
+	border: 2px solid #FF4C4C;
+	color: #FF4C4C;
+	font-size: 15px;
+}
+
+.editPage button#btn-cancelAddPage:hover, button#btn-cancelEditPage:hover{
+	background-color: #FF4C4C;
+	color: white;
+}
+
+.editPage button#btn-addPage, button#btn-editPage{
+	margin-top: 20px;
+	width: 49%;
 	height: 40px;
 	border: 2px solid #3FBF7F;
 	color: #3FBF7F;
 	font-size: 15px;
 }
 
-.editPage button:hover{
+.editPage button#btn-addPage:hover, button#btn-editPage:hover{
 	background-color: #3FBF7F;
 	color: white;
 }
@@ -328,4 +345,45 @@ tr:nth-child(even) {
 .delete:hover {
     background-color: #f44336;
     color: white;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+		max-height: calc(100vh - 210px);
+		overflow-y: auto;
+}
+
+/* The Close Button */
+.close, .editClose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus, .editClose:hover, .editClose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

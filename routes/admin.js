@@ -40,15 +40,7 @@ router.get('/editPage/:id', function(req, res){
   }, function(err, page){
     if (err) return res.send(err);
     if (page){
-        res.render('editPage', {
-          id: page._id,
-          title: page.title,
-          section_title: page.section_title,
-          body: page.body,
-          url: page.url,
-          footer: page.footer,
-          template: page.template
-        });
+        res.send(JSON.stringify(page));
     };
   });
 });
@@ -84,7 +76,11 @@ router.post('/editCurrentPage/:id', function(req,res){
         return console.error(err);
       }
       else{
-        res.redirect('/admin');
+        res.send(JSON.stringify({
+          title: req.body.title,
+          url: req.body.url,
+          _id: req.params.id
+        }));
       }
 
     }
@@ -153,11 +149,11 @@ router.get('/logout', function(req, res){
   res.redirect('/auth');
 });
 
-router.get('/deletePage/:id', function(req, res){
+router.delete('/deletePage/:id', function(req, res){
   pageModel.remove( {"user._id": req.user._id, _id: req.params.id},
    function(err, isDeleted){
-    if(err) return console.error(err);
-    res.redirect('/admin');
+    if(err) return res.status(500).send(err);
+    res.end();
   });
 });
 
@@ -170,16 +166,20 @@ router.get('/visiblePage/:id', function(req, res){
           {"user._id": page.user._id, url: page.url},
           {$set: {visible: false}},
           function(err, page){
-            if(err) return console.error(err);
-            res.redirect('/admin');
+            if(err) return res.status(500).send(err);
+            res.send(JSON.stringify({
+              "visible" : false
+            }));
           });
       }else{
         pageModel.findOneAndUpdate(
           {"user._id": page.user._id, url: page.url},
           {$set: {visible: true}},
           function(err, page){
-            if(err) return console.error(err);
-            res.redirect('/admin');
+            if(err) return res.status(500).send(err);
+            res.send(JSON.stringify({
+              "visible" : true
+            }));
           });
         };
       }
