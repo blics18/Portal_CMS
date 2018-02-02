@@ -58,11 +58,10 @@
 
 						<div class="editPage">
 							<h2>URL</h2>
-							<% if (typeof err !== 'undefined') {%>
+
 								<div class="auth-error-container">
-									<%= err %>
 								</div>
-							<% } %>
+
 								<input class="url" type="text" name="url" placeholder="Edit URL">
 						</div>
 
@@ -170,6 +169,7 @@
 
 <script>
 	$(document).ready(function(){
+
 		var quill = new Quill('#editor-container', {
 		modules: {
 		toolbar: [
@@ -183,6 +183,7 @@
 	});
 
 		$('#addPage-link').on('click', function(event){
+			$('.auth-error-container').css("display", "none");
 			// Get the modal
 			var modal = $('#addPageModal')[0];
 
@@ -214,10 +215,15 @@
 				dataType: "json",
 			})
 			.done(function(json){
-					$('table').append('<tr><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + json.title + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><% if (' + json.visible + ') { %><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><% }else{ %><button class="button visibility btn-visible"  data-page-id="' + json._id + '" id="notVisible">Visibility</button><% } %><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
+				if (json.err){
+					$('.auth-error-container').html(json.err);
+					$('.auth-error-container').css("display", "block");
+				}else{
+					$('table').append('<tr><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + json.title + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
 					var modal = $('#addPageModal')[0];
 					modal.style.display = "none";
 					$('#addPage-form')[0].reset();
+				}
 			})
 		 event.preventDefault();
 		});

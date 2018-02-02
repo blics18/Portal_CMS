@@ -53,6 +53,7 @@ body{
 	color: red;
 	font-size: 1.4em;
 	padding-bottom: 5px;
+	display: none;
 }
 
 /*------editPage.html------*/

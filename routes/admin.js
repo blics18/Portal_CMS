@@ -119,9 +119,11 @@ router.post('/addPage', function(req, res) {
           //   template: req.body.template,
           //   err: `URL (${req.body.url.trim()}) already exists. Enter another`
           // })
-          // err = { err: `URL (${req.body.url.trim()}) already exists. Enter another`}
-          // res.status(400).send(JSON.stringify(err));
-          res.status(500);
+          err = {
+            err: `URL (${req.body.url.trim()}) already exists. Enter another`,
+            url: req.body.url.trim()
+          }
+          res.send(JSON.stringify(err));
         }
         return console.error(err);
       }
