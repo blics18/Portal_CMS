@@ -20,12 +20,18 @@
 		<div class="container">
 
 			<header>
-				<h1><%= title %></h1>
+				<div data-editable data-name="title">
+					<%- title %>
+				</div>
 			</header>
 
 			<section id="section1">
-				<h2><%= section_title %></h2>
-				<p><%= body%></p>
+				<div data-editable data-name="section1_title">
+					<%- section_title %>
+				</div>
+				<div data-editable data-name="section1_body">
+					<%- body%>
+				</div>
 			</section>
 
 			<div class="row" id="section2">
@@ -51,7 +57,14 @@
 		</div>
 
 		<footer>
-			<h5><%= footer %></h5>
+			<div data-editable data-name="footer">
+				<%- footer %>
+			</div>
 		</footer>
+
+<script>
+ var pageId = "<%= _id %>";
+ var url = "<%= url %>"
+</script>
 
 <% include footer %>

@@ -138,6 +138,10 @@ header h1{
 	color: white;
 }
 
+#editor-container {
+  height: 375px;
+}
+
 /*------dashboard.html-------*/
 /*body{
 	margin: 0px;

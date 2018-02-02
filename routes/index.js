@@ -22,10 +22,12 @@ router.get('/:page', function(req, res){
       if(currentPage && currentPage.visible){
        res.render('template', {
          pages: page,
+         _id: currentPage._id,
          title: currentPage.title,
          section_title: currentPage.section_title,
          body: currentPage.body,
-         footer: currentPage.footer
+         footer: currentPage.footer,
+         url: currentPage.url
        });
      }else{
        res.status(404).send('404 - Not found');

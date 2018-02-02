@@ -47,18 +47,22 @@ router.get('/editPage/:id', function(req, res){
 
 //find page and update it
 router.post('/editCurrentPage/:id', function(req,res){
+  setData = {
+    "user": req.user,
+    "date": new Date(),
+    "visible": true
+  };
+  if (req.body.title) setData["title"] = req.body.title;
+  if (req.body.section1_title) setData["section_title"] = req.body.section1_title;
+  if (req.body.section1_body) setData["body"] = req.body.section1_body;
+  if (req.body.url) setData["url"] = req.body.url;
+  if (req.body.footer) setData["footer"] = req.body.footer;
+  if (req.body.template) setData["template"] =  req.body.template;
+
   pageModel.findOneAndUpdate(
     {"user._id": req.user._id, _id: req.params.id},
-    {$set: {
-      title : req.body.title,
-      section_title: req.body.section1_title,
-      body: req.body.section1_body,
-      url: req.body.url,
-      footer: req.body.footer,
-      template: req.body.template,
-      user: req.user,
-      date: new Date(),
-      visible: true}},
+    {$set: setData
+    },
     function(err, page){
       if(err){
         if(err.code === 11000){ //duplicate url
@@ -76,11 +80,12 @@ router.post('/editCurrentPage/:id', function(req,res){
         return console.error(err);
       }
       else{
-        res.send(JSON.stringify({
-          title: req.body.title,
-          url: req.body.url,
-          _id: req.params.id
-        }));
+        // res.status(200).send(JSON.stringify({
+        //   title: req.body.title,
+        //   url: req.body.url,
+        //   _id: req.params.id
+        // }));
+        res.status(200).end();
       }
 
     }
@@ -104,16 +109,19 @@ router.post('/addPage', function(req, res) {
     newPage.save(function(err, user){
     	if(err){
         if(err.code === 11000){ //duplicate url
-          res.render('editPage', {
-            id: "",
-            title: req.body.title,
-            section_title: req.body.section1_title,
-            body: req.body.section1_body,
-            url: "",
-            footer: req.body.footer,
-            template: req.body.template,
-            err: `URL (${req.body.url.trim()}) already exists. Enter another`
-          })
+          // res.render('editPage', {
+          //   id: "",
+          //   title: req.body.title,
+          //   section_title: req.body.section1_title,
+          //   body: req.body.section1_body,
+          //   url: "",
+          //   footer: req.body.footer,
+          //   template: req.body.template,
+          //   err: `URL (${req.body.url.trim()}) already exists. Enter another`
+          // })
+          // err = { err: `URL (${req.body.url.trim()}) already exists. Enter another`}
+          // res.status(400).send(JSON.stringify(err));
+          res.status(500);
         }
         return console.error(err);
       }
@@ -168,7 +176,10 @@ router.get('/visiblePage/:id', function(req, res){
           function(err, page){
             if(err) return res.status(500).send(err);
             res.send(JSON.stringify({
-              "visible" : false
+              "visible" : false,
+              "_id" : page._id,
+              "url" : page.url,
+              "title" : page.title
             }));
           });
       }else{
@@ -178,7 +189,10 @@ router.get('/visiblePage/:id', function(req, res){
           function(err, page){
             if(err) return res.status(500).send(err);
             res.send(JSON.stringify({
-              "visible" : true
+              "visible" : true,
+              "_id" : page._id,
+              "url" : page.url,
+              "title" : page.title
             }));
           });
         };
