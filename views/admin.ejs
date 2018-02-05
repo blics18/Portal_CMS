@@ -7,7 +7,7 @@
 						<ul class="subNav">
 						<% for (var i = 0; i < pages.length; i++) { %>
 							<% if (pages[i].visible) { %>
-								<li id="<%= pages[i]._id %>"><a href="/<%= pages[i].url %>"><%= pages[i].title %></a></li>
+								<li id="<%= pages[i]._id %>"><a href="/<%= pages[i].url %>"><%= pages[i].title.replace(/<{1}[^<>]{1,}>{1}/g," ") %></a></li>
 								<% } %>
 						<% } %>
 						</ul>
@@ -59,7 +59,7 @@
 						<div class="editPage">
 							<h2>URL</h2>
 
-								<div class="auth-error-container">
+								<div class="addModal-error-container">
 								</div>
 
 								<input class="url" type="text" name="url" placeholder="Edit URL">
@@ -95,7 +95,7 @@
 
 					<% for (var i = 0; i < pages.length; i++){ %>
 				  	<tr>
-							<td><a href="/<%= pages[i].url %>" class="pages" id="<%= pages[i]._id %>"><%= pages[i].title %></a></td>
+							<td class="<%= pages[i]._id %>"><a href="/<%= pages[i].url %>" class="pages" id="<%= pages[i]._id %>"><%= pages[i].title.replace(/<{1}[^<>]{1,}>{1}/g," ") %></a></td>
 				  		<td><%= pages[i].date %></td>
 				  		<td>
 					  			<button class="button edit btn-edit" data-page-id="<%= pages[i]._id %>">Edit</button>
@@ -125,26 +125,11 @@
 						<form  id="editPage-form">
 
 						<div class="editPage">
-							<h2>Title</h2>
-								<input type="text" name="title" placeholder="Enter Title">
-						</div>
-
-						<div class="editPage">
-							<h2>Body</h2>
-							<h3>Section 1 Title</h3>
-								<input type="text" name="section1_title">
-
-							<h3>Section 1 Body</h3>
-									<textarea name="section1_body"></textarea>
-						</div>
-
-						<div class="editPage">
-							<h2>Footer</h2>
-								<input type="text" name="footer">
-						</div>
-
-						<div class="editPage">
 							<h2>URL</h2>
+
+								<div class="editModal-error-container">
+								</div>
+
 								<input type="text" name="url">
 						</div>
 
@@ -216,10 +201,12 @@
 			})
 			.done(function(json){
 				if (json.err){
-					$('.auth-error-container').html(json.err);
-					$('.auth-error-container').css("display", "block");
+					$('.addModal-error-container').html(json.err);
+					$('.addModal-error-container').css("display", "block");
 				}else{
-					$('table').append('<tr><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + json.title + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
+					var newTitle = json.title.replace(/<{1}[^<>]{1,}>{1}/g," ");
+					$('table').append('<tr><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + newTitle + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
+					$('.subNav').append('<li id="' + json._id + '"><a href="/' + json.url + '">' + newTitle + '</a></li>');
 					var modal = $('#addPageModal')[0];
 					modal.style.display = "none";
 					$('#addPage-form')[0].reset();
@@ -246,6 +233,7 @@
 		$('#target-table').on('click', '.btn-delete', function(event){
 				var button = $(this);
 				var pageId = button.attr('data-page-id');
+				$('.subNav #' + pageId).remove();
 				$.ajax({
 					type: "DELETE",
 					url: `/admin/deletePage/${pageId}`
@@ -284,10 +272,17 @@
 				dataType: "json",
 			})
 			.done(function(json){
-				var editModal = $('#editModal')[0];
-				$("#" + json._id).replaceWith('<a href="/"' + json.url + 'class="pages" id="' + json._id + '">' + json.title + '</a>');
-				editModal.style.display = "none";
-				$('#editPage-form')[0].reset();
+				if (json.err){
+					$('.editModal-error-container').html(json.err);
+					$('.editModal-error-container').css("display", "block");
+				}else{
+					var editModal = $('#editModal')[0];
+					var newTitle = (json.title).replace(/<{1}[^<>]{1,}>{1}/g," ");
+					$("#" + json._id).replaceWith('<li id="' + json._id + '"><a href="/' + json.url + '">' + newTitle + '</a></li>');
+					$("table tr td ." + json._id).replaceWith('<a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + newTitle + '</a>');
+					editModal.style.display = "none";
+					$('#editPage-form')[0].reset();
+				}
 			})
 		 event.preventDefault();
 		});

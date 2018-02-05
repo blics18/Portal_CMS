@@ -66,26 +66,31 @@ router.post('/editCurrentPage/:id', function(req,res){
     function(err, page){
       if(err){
         if(err.code === 11000){ //duplicate url
-          res.render('editPage', {
-            id: "",
-            title: req.body.title,
-            section_title: req.body.section1_title,
-            body: req.body.section1_body,
-            url: "",
-            footer: req.body.footer,
-            template: req.body.template,
-            err: `URL (${req.body.url.trim()}) already exists. Enter another`
-          })
+          // res.render('editPage', {
+          //   id: "",
+          //   title: req.body.title,
+          //   section_title: req.body.section1_title,
+          //   body: req.body.section1_body,
+          //   url: "",
+          //   footer: req.body.footer,
+          //   template: req.body.template,
+          //   err: `URL (${req.body.url.trim()}) already exists. Enter another`
+          // })
+          err = {
+            err: `URL (${req.body.url.trim()}) already exists. Enter another`,
+            url: req.body.url.trim()
+          }
+          res.send(JSON.stringify(err));
         }
         return console.error(err);
       }
       else{
-        // res.status(200).send(JSON.stringify({
-        //   title: req.body.title,
-        //   url: req.body.url,
-        //   _id: req.params.id
-        // }));
-        res.status(200).end();
+        res.send(JSON.stringify({
+          title: page.title,
+          url: req.body.url.trim(),
+          _id: req.params.id
+        }));
+        // res.status(200).end();
       }
 
     }
