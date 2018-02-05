@@ -88,7 +88,8 @@ router.post('/editCurrentPage/:id', function(req,res){
         res.send(JSON.stringify({
           title: page.title,
           url: req.body.url.trim(),
-          _id: req.params.id
+          _id: req.params.id,
+          date: page.date
         }));
         // res.status(200).end();
       }

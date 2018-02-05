@@ -94,8 +94,8 @@
 			  	</tr>
 
 					<% for (var i = 0; i < pages.length; i++){ %>
-				  	<tr>
-							<td class="<%= pages[i]._id %>"><a href="/<%= pages[i].url %>" class="pages" id="<%= pages[i]._id %>"><%= pages[i].title.replace(/<{1}[^<>]{1,}>{1}/g," ") %></a></td>
+				  	<tr class="<%= pages[i]._id %>">
+							<td><a href="/<%= pages[i].url %>" class="pages" id="<%= pages[i]._id %>"><%= pages[i].title.replace(/<{1}[^<>]{1,}>{1}/g," ") %></a></td>
 				  		<td><%= pages[i].date %></td>
 				  		<td>
 					  			<button class="button edit btn-edit" data-page-id="<%= pages[i]._id %>">Edit</button>
@@ -279,7 +279,7 @@
 					var editModal = $('#editModal')[0];
 					var newTitle = (json.title).replace(/<{1}[^<>]{1,}>{1}/g," ");
 					$("#" + json._id).replaceWith('<li id="' + json._id + '"><a href="/' + json.url + '">' + newTitle + '</a></li>');
-					$("table tr td ." + json._id).replaceWith('<a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + newTitle + '</a>');
+					$("." + json._id).replaceWith('<tr class="' + json._id + '"><td><a href="/'+ json.url + '" class="pages" id="' + json._id + '">' + newTitle + '</a></td><td>' + json.date + '</td><td><button class="button edit btn-edit" data-page-id="' +  json._id + '">Edit</button><button class="button visibility btn-visible"  data-page-id="' + json._id + '">Visibility</button><button class="button delete btn-delete" data-page-id="' + json._id + '">Delete</button></td></tr>');
 					editModal.style.display = "none";
 					$('#editPage-form')[0].reset();
 				}
